@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap } from "lucide-react";
+import { Briefcase, GraduationCap, MapPin, Calendar } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const EXPERIENCES = [
   {
@@ -38,73 +40,88 @@ const EXPERIENCES = [
   }
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" }
+  }
+};
+
 export default function Experience() {
   return (
-    <section id="experience" className="py-24 relative bg-slate-900/30">
+    <section id="experience" className="py-32 relative">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Experience & <span className="text-brand-400">Education</span>
-          </h2>
-          <div className="w-20 h-1 bg-brand-500 mx-auto rounded-full" />
-        </motion.div>
+        <div className="space-y-4 mb-16 text-center md:text-left">
+          <span className="text-blue-500 font-mono text-sm tracking-widest uppercase">04. Journey</span>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Experience & Learning.</h2>
+        </div>
 
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="relative border-l-2 border-brand-500/30 ml-3 md:ml-0 md:pl-0"
+        <div className="max-w-4xl mx-auto overflow-hidden">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="relative border-l-2 border-blue-500/20 ml-4 md:ml-48"
           >
             {EXPERIENCES.map((exp, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -50, scale: 0.95 }}
-                whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.15, type: "spring" }}
-                className="relative pl-8 md:pl-0 mb-12 last:mb-0 group"
+                variants={itemVariants}
+                className="relative mb-16 last:mb-0 pl-10"
               >
-                <div className="md:grid md:grid-cols-5 md:gap-8 items-start">
-                  <div className="md:col-span-1 hidden md:block text-right pt-1">
-                    <span className="text-brand-400 font-mono text-sm block transform transition-transform group-hover:scale-110 origin-right">{exp.period}</span>
-                  </div>
+                {/* Timeline Dot */}
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + index * 0.2, type: "spring", stiffness: 200 }}
+                  className="absolute -left-[11px] top-4 w-5 h-5 rounded-full bg-background border-2 border-blue-500 flex items-center justify-center -z-0"
+                >
+                  <div className="w-2 h-2 rounded-full bg-blue-500" />
+                </motion.div>
 
-                  <div className="md:col-span-4 relative">
-                    <motion.div
-                      whileHover={{ scale: 1.5, backgroundColor: "#3b82f6" }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                      className="absolute -left-10 md:-left-[29px] top-1 w-5 h-5 rounded-full bg-slate-900 border-2 border-brand-500 flex items-center justify-center cursor-pointer"
-                    >
-                      <div className="w-2 h-2 bg-brand-400 rounded-full" />
-                    </motion.div>
-
-                    <motion.div
-                      whileHover={{ x: 10, backgroundColor: "rgba(255,255,255,0.05)" }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                      className="glass-card p-6 border-l-4 border-l-brand-500 rounded-l-none transition-colors"
-                    >
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-slate-400">
-                          <exp.icon size={20} />
-                        </span>
-                        <h3 className="text-xl font-bold text-white">{exp.title}</h3>
-                      </div>
-                      <div className="md:hidden text-brand-400 font-mono text-sm mb-3">{exp.period}</div>
-                      <h4 className="text-slate-300 font-medium mb-3">{exp.company}</h4>
-                      <p className="text-slate-400 text-sm leading-relaxed">
-                        {exp.description}
-                      </p>
-                    </motion.div>
-                  </div>
+                {/* Period Label (Desktop Only) */}
+                <div className="absolute -left-48 top-4 w-32 hidden md:block text-right">
+                  <p className="text-sm font-mono text-blue-500 font-bold uppercase tracking-tight">{exp.period}</p>
                 </div>
+
+                <Card className="glass border-white/5 hover:border-blue-500/30 transition-all duration-500 group">
+                  <CardHeader className="pb-2">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                       <div className="flex items-center gap-3">
+                          <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500 border border-blue-500/20 group-hover:scale-110 transition-transform duration-500">
+                             <exp.icon size={18} />
+                          </div>
+                          <CardTitle className="text-xl md:text-2xl font-bold group-hover:text-blue-400 transition-colors">{exp.title}</CardTitle>
+                       </div>
+                       <Badge variant="outline" className="w-fit text-[10px] uppercase font-bold tracking-widest border-blue-500/20 text-blue-500">
+                          {exp.type === "work" ? "Professional" : "Education"}
+                       </Badge>
+                    </div>
+                    <div className="flex items-center gap-4 text-muted-foreground text-sm font-medium mt-2">
+                       <span className="flex items-center gap-1.5"><MapPin size={14} /> {exp.company}</span>
+                       <span className="md:hidden flex items-center gap-1.5 font-mono text-blue-500 text-xs"><Calendar size={14} /> {exp.period}</span>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground leading-relaxed font-light">
+                      {exp.description}
+                    </p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </motion.div>

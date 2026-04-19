@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { name: "Home", href: "#home" },
@@ -17,20 +18,22 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center py-4"
+      className="fixed top-6 left-0 right-0 z-50 flex justify-center"
     >
-      <nav className="glass px-6 py-3 rounded-full flex gap-6 items-center hidden md:flex">
+      <nav className="glass px-6 py-2 rounded-full flex gap-2 items-center">
         {NAV_LINKS.map((link) => (
           <a
             key={link.name}
             href={link.href}
-            className="text-sm font-medium text-slate-300 hover:text-white hover:text-glow transition-all duration-300"
+            className={cn(
+              "px-4 py-2 text-sm font-medium transition-all rounded-full",
+              "text-muted-foreground hover:text-foreground hover:bg-white/5"
+            )}
           >
             {link.name}
           </a>
         ))}
       </nav>
-      {/* Mobile Nav could be added here later */}
     </motion.header>
   );
 }
