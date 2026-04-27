@@ -63,51 +63,83 @@ export default function VSCodeLayout() {
   const settingsRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const searchableFiles = [
+  const searchEntries = [
     {
+      type: "file",
       name: "home.tsx",
       title: "Home",
       description: "Hero section, role chips, social links, CV download.",
-      keywords: ["backend engineer", "qa engineer", "full stack", "youtube", "github", "linkedin", "projects", "about", "contact"],
+      snippet: "Hero intro, role chips, stats, and social links.",
+      keywords: ["backend engineer", "qa engineer", "full stack", "github", "linkedin", "projects", "about", "contact"],
     },
     {
+      type: "content",
       name: "about.html",
       title: "About",
       description: "Profile summary, soft skills, and education history.",
-      keywords: ["soft skills", "education", "youcode", "ofppt", "teamwork", "time management", "conflict resolution", "morocco"],
+      snippet: "Soft skills, education timeline, and background summary.",
+      keywords: ["soft skills", "education", "youcode", "ofppt", "teamwork", "time management", "conflict resolution", "morocco", "baccalaureate"],
     },
     {
+      type: "content",
       name: "skills.json",
       title: "Skills",
       description: "Frontend, backend, database, testing, DevOps, tools.",
-      keywords: ["react", "nextjs", "angular", "java", "spring boot", "postgresql", "mongodb", "junit", "selenium", "docker", "git"],
+      snippet: "Frontend, backend, databases, testing, DevOps, and tools.",
+      keywords: ["react", "nextjs", "angular", "java", "spring boot", "postgresql", "mongodb", "junit", "selenium", "docker", "git", "uml"],
     },
     {
+      type: "content",
       name: "projects.js",
       title: "Projects",
       description: "EcoRide and Logistics Fleet Management projects.",
-      keywords: ["microservices", "transport", "logistics", "docker", "maven", "ci/cd", "rest api", "spring boot", "unit test"],
+      snippet: "EcoRide transport platform and logistics fleet management.",
+      keywords: ["microservices", "transport", "logistics", "docker", "maven", "ci/cd", "rest api", "spring boot", "unit test", "architecture"],
     },
     {
+      type: "content",
       name: "experience.ts",
       title: "Experience",
       description: "Full stack internship at TwaadUp, Agadir.",
-      keywords: ["internship", "twaadup", "agadir", "autonomy", "best practices", "problem solving", "reactjs", "spring boot"],
+      snippet: "Autonomous project delivery, best practices, and mentorship.",
+      keywords: ["internship", "twaadup", "agadir", "autonomy", "best practices", "problem solving", "reactjs", "spring boot", "full stack"],
     },
     {
+      type: "content",
       name: "contact.tsx",
       title: "Contact",
       description: "Email form, GitHub, LinkedIn, and response info.",
-      keywords: ["email", "form", "linkedin", "github", "message", "send message"],
+      snippet: "Modern contact form with email delivery and social links.",
+      keywords: ["email", "form", "linkedin", "github", "message", "send message", "response", "availability"],
+    },
+    {
+      type: "action",
+      name: "open-home",
+      title: "Open Home",
+      description: "Jump to the landing section.",
+      snippet: "Open the home file.",
+      keywords: ["home", "landing", "intro"],
+      target: "home.tsx",
+    },
+    {
+      type: "action",
+      name: "open-projects",
+      title: "Open Projects",
+      description: "Jump to the projects section.",
+      snippet: "Open the projects file.",
+      keywords: ["projects", "work", "portfolio"],
+      target: "projects.js",
     },
   ];
 
-  const filteredSearchResults = searchQuery.trim()
-    ? searchableFiles.filter((file) => {
-        const haystack = `${file.name} ${file.title} ${file.description} ${file.keywords.join(" ")}`.toLowerCase();
-        return haystack.includes(searchQuery.toLowerCase().trim());
+  const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+
+  const filteredSearchResults = normalizedSearchQuery
+    ? searchEntries.filter((entry) => {
+        const haystack = `${entry.name} ${entry.title} ${entry.description} ${entry.snippet} ${entry.keywords.join(" ")}`.toLowerCase();
+        return haystack.includes(normalizedSearchQuery);
       })
-    : searchableFiles;
+    : searchEntries;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -122,6 +154,26 @@ export default function VSCodeLayout() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const isSearchShortcut = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "p";
+
+      if (isSearchShortcut) {
+        event.preventDefault();
+        openSearch();
+        return;
+      }
+
+      if (event.key === "Escape" && searchOpen) {
+        setSearchOpen(false);
+        setSearchQuery("");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [searchOpen]);
 
   const toggleMenu = (e: React.MouseEvent, menuName: string) => {
     setActiveMenu(activeMenu === menuName ? null : menuName);
@@ -144,6 +196,12 @@ export default function VSCodeLayout() {
     openFile(fileName);
     setSearchOpen(false);
     setSearchQuery("");
+  };
+
+  const groupedSearchResults = {
+    files: filteredSearchResults.filter((entry) => entry.type === "file"),
+    content: filteredSearchResults.filter((entry) => entry.type === "content"),
+    actions: filteredSearchResults.filter((entry) => entry.type === "action"),
   };
 
   const CurrentComponent = FILES.find((f) => f.name === activeFile)?.component || HomeFile;
@@ -441,26 +499,82 @@ export default function VSCodeLayout() {
 
                  <div className="max-h-[280px] overflow-auto custom-scrollbar">
                    {filteredSearchResults.length > 0 ? (
-                     filteredSearchResults.map((file) => {
-                       const Icon = FILES.find((entry) => entry.name === file.name)?.icon || VscCode;
-                       return (
+                     <div>
+                       <div className="px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-vscode-text-muted font-bold border-b border-white/5">
+                         Files
+                       </div>
+                       {groupedSearchResults.files.map((entry) => {
+                         const fileMeta = FILES.find((file) => file.name === entry.name);
+                         const Icon = fileMeta?.icon || VscCode;
+                         return (
+                           <button
+                             key={entry.name}
+                             type="button"
+                             onClick={() => handleSearchResultClick(entry.name)}
+                             className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5"
+                           >
+                             <Icon size={15} style={{ color: fileMeta?.color || "#fff" }} className="mt-0.5 shrink-0" />
+                             <div className="min-w-0 flex-1">
+                               <div className="flex items-center justify-between gap-3">
+                                 <span className="text-sm text-white font-medium truncate">{entry.name}</span>
+                                 <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">{entry.title}</span>
+                               </div>
+                               <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{entry.description}</p>
+                             </div>
+                           </button>
+                         );
+                       })}
+
+                       <div className="px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-vscode-text-muted font-bold border-y border-white/5 bg-white/[0.015]">
+                         Content Matches
+                       </div>
+                       {groupedSearchResults.content.map((entry) => {
+                         const fileMeta = FILES.find((file) => file.name === entry.name);
+                         const Icon = fileMeta?.icon || VscCode;
+                         return (
+                           <button
+                             key={`${entry.name}-${entry.title}`}
+                             type="button"
+                             onClick={() => handleSearchResultClick(entry.name)}
+                             className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5"
+                           >
+                             <Icon size={15} style={{ color: fileMeta?.color || "#fff" }} className="mt-0.5 shrink-0" />
+                             <div className="min-w-0 flex-1">
+                               <div className="flex items-center justify-between gap-3">
+                                 <span className="text-sm text-white font-medium truncate">{entry.title}</span>
+                                 <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">{entry.name}</span>
+                               </div>
+                               <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{entry.snippet}</p>
+                             </div>
+                           </button>
+                         );
+                       })}
+
+                       <div className="px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-vscode-text-muted font-bold border-y border-white/5 bg-white/[0.015]">
+                         Quick Actions
+                       </div>
+                       {groupedSearchResults.actions.map((entry) => (
                          <button
-                           key={file.name}
+                           key={entry.name}
                            type="button"
-                           onClick={() => handleSearchResultClick(file.name)}
+                           onClick={() => {
+                             if (entry.target) {
+                               handleSearchResultClick(entry.target);
+                             }
+                           }}
                            className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-b-0"
                          >
-                           <Icon size={15} style={{ color: FILES.find((entry) => entry.name === file.name)?.color || "#fff" }} className="mt-0.5 shrink-0" />
+                           <VscChevronRight size={15} className="mt-0.5 shrink-0 text-vscode-text-muted" />
                            <div className="min-w-0 flex-1">
                              <div className="flex items-center justify-between gap-3">
-                               <span className="text-sm text-white font-medium truncate">{file.name}</span>
-                               <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">{file.title}</span>
+                               <span className="text-sm text-white font-medium truncate">{entry.title}</span>
+                               <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">Action</span>
                              </div>
-                             <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{file.description}</p>
+                             <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{entry.description}</p>
                            </div>
                          </button>
-                       );
-                     })
+                       ))}
+                     </div>
                    ) : (
                      <div className="px-4 py-6 text-sm text-vscode-text-muted">
                        No matching file found.
