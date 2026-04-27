@@ -87,7 +87,7 @@ export default function SkillsFile() {
       ]
     },
     {
-      title: "BASE DE DONNÉES",
+      title: "DATABASE",
       skills: [
         { name: "MySQL", level: 85, colorCode: "rgb(0, 191, 255)" }, // Blue
         { name: "PostgreSQL", level: 90, colorCode: "rgb(138, 43, 226)" }, // Purple
@@ -113,7 +113,7 @@ export default function SkillsFile() {
       ]
     },
     {
-      title: "OUTILS",
+      title: "TOOLS",
       skills: [
         { name: "Git / Github", level: 90, colorCode: "rgb(255, 165, 0)" }, // Orange
         { name: "Jira / Trello", level: 85, colorCode: "rgb(0, 191, 255)" }, // Blue

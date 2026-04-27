@@ -46,7 +46,7 @@ export default function ProjectsFile() {
           <h2 className="text-white font-sans font-black text-[22px] mb-3 tracking-wide">EcoRide – Transport Platform</h2>
           
           <p className="text-vscode-text-muted text-[13px] leading-[1.8] mb-6 font-mono flex-grow">
-            Développement d’une application basée sur une architecture microservices, permettant la gestion et l’optimisation des services de transport. Travail en équipe avec mise en place de bonnes pratiques de développement et d’intégration continue.
+            Development of a microservices-based application for managing and optimizing transport services. Team collaboration with modern development practices and continuous integration.
           </p>
           
           <div className="flex flex-wrap gap-2 mt-auto">
@@ -58,7 +58,7 @@ export default function ProjectsFile() {
           </div>
         </div>
 
-        {/* Project 2: Gestion de Flotte Logistique */}
+        {/* Project 2: Logistics Fleet Management */}
         <div 
           className="border border-white/10 rounded-md p-6 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-300 flex flex-col group opacity-0 animate-[slide-up-fade_0.5s_ease-out_forwards]"
           style={{ animationDelay: "0.4s" }}
@@ -74,10 +74,10 @@ export default function ProjectsFile() {
             BACKEND · ARCHITECTURE
           </div>
           
-          <h2 className="text-white font-sans font-black text-[22px] mb-3 tracking-wide">Gestion de Flotte Logistique</h2>
+          <h2 className="text-white font-sans font-black text-[22px] mb-3 tracking-wide">Logistics Fleet Management</h2>
           
           <p className="text-vscode-text-muted text-[13px] leading-[1.8] mb-6 font-mono flex-grow">
-            Développement d’un logiciel de gestion logistique permettant de gérer les inventaires, les flux d’expédition/réception, et les tâches de supervision — avec une architecture modulaire et déployable en conteneurs Docker.
+            Development of logistics management software for handling inventory, shipping and receiving flows, and supervision tasks, with a modular architecture deployable in Docker containers.
           </p>
           
           <div className="flex flex-wrap gap-2 mt-auto">

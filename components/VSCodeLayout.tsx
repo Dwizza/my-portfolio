@@ -57,13 +57,63 @@ export default function VSCodeLayout() {
   const [explorerOpen, setExplorerOpen] = useState(true);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const topBarRef = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const searchableFiles = [
+    {
+      name: "home.tsx",
+      title: "Home",
+      description: "Hero section, role chips, social links, CV download.",
+      keywords: ["backend engineer", "qa engineer", "full stack", "youtube", "github", "linkedin", "projects", "about", "contact"],
+    },
+    {
+      name: "about.html",
+      title: "About",
+      description: "Profile summary, soft skills, and education history.",
+      keywords: ["soft skills", "education", "youcode", "ofppt", "teamwork", "time management", "conflict resolution", "morocco"],
+    },
+    {
+      name: "skills.json",
+      title: "Skills",
+      description: "Frontend, backend, database, testing, DevOps, tools.",
+      keywords: ["react", "nextjs", "angular", "java", "spring boot", "postgresql", "mongodb", "junit", "selenium", "docker", "git"],
+    },
+    {
+      name: "projects.js",
+      title: "Projects",
+      description: "EcoRide and Logistics Fleet Management projects.",
+      keywords: ["microservices", "transport", "logistics", "docker", "maven", "ci/cd", "rest api", "spring boot", "unit test"],
+    },
+    {
+      name: "experience.ts",
+      title: "Experience",
+      description: "Full stack internship at TwaadUp, Agadir.",
+      keywords: ["internship", "twaadup", "agadir", "autonomy", "best practices", "problem solving", "reactjs", "spring boot"],
+    },
+    {
+      name: "contact.tsx",
+      title: "Contact",
+      description: "Email form, GitHub, LinkedIn, and response info.",
+      keywords: ["email", "form", "linkedin", "github", "message", "send message"],
+    },
+  ];
+
+  const filteredSearchResults = searchQuery.trim()
+    ? searchableFiles.filter((file) => {
+        const haystack = `${file.name} ${file.title} ${file.description} ${file.keywords.join(" ")}`.toLowerCase();
+        return haystack.includes(searchQuery.toLowerCase().trim());
+      })
+    : searchableFiles;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (topBarRef.current && !topBarRef.current.contains(e.target as Node)) {
         setActiveMenu(null);
+        setSearchOpen(false);
       }
       if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) {
         setSettingsOpen(false);
@@ -80,6 +130,20 @@ export default function VSCodeLayout() {
   const handleMenuAction = (action: () => void) => {
     action();
     setActiveMenu(null);
+  };
+
+  const openSearch = () => {
+    setSearchOpen(true);
+    requestAnimationFrame(() => {
+      searchInputRef.current?.focus();
+      searchInputRef.current?.select();
+    });
+  };
+
+  const handleSearchResultClick = (fileName: string) => {
+    openFile(fileName);
+    setSearchOpen(false);
+    setSearchQuery("");
   };
 
   const CurrentComponent = FILES.find((f) => f.name === activeFile)?.component || HomeFile;
@@ -129,10 +193,7 @@ export default function VSCodeLayout() {
                 <div className="px-4 py-1.5 hover:bg-white/10 hover:text-white cursor-pointer flex justify-between" onClick={() => handleMenuAction(() => openFile('Untitled-1'))}>
                   <span className="font-medium text-vscode-text hover:text-white">New Tab</span><span className="text-vscode-text-muted text-[11px]">Ctrl+T</span>
                 </div>
-                <div className="px-4 py-1.5 hover:bg-white/10 hover:text-white cursor-pointer flex justify-between" onClick={() => handleMenuAction(() => {
-                    const sb = document.getElementById('vscode-search-bar');
-                    if (sb) { sb.focus(); sb.classList.add('bg-vscode-activity') }
-                })}>
+                <div className="px-4 py-1.5 hover:bg-white/10 hover:text-white cursor-pointer flex justify-between" onClick={() => handleMenuAction(() => openSearch())}>
                   <span className="font-medium text-vscode-text hover:text-white">Open File...</span><span className="text-vscode-text-muted text-[11px]">Ctrl+P</span>
                 </div>
                 <div className="h-px bg-white/5 my-1.5"></div>
@@ -329,18 +390,85 @@ export default function VSCodeLayout() {
         </div>
 
         {/* Center: Search Bar & Navigation */}
-        <div className="flex-1 flex justify-center items-center h-full pointer-events-none min-w-0 px-2 lg:px-4">
+        <div className="flex-1 flex justify-center items-center h-full pointer-events-none min-w-0 px-2 lg:px-4 relative">
            <div className="hidden lg:flex space-x-1 text-vscode-text mr-3 pointer-events-auto shrink-0">
               <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100"><VscArrowLeft size={16} /></div>
               <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100"><VscArrowRight size={16} /></div>
            </div>
-           <div 
-             id="vscode-search-bar"
-             tabIndex={0}
-             className="h-[24px] w-full max-w-[400px] bg-vscode-tab-inactive rounded-md border border-vscode-border flex items-center justify-center text-[12px] text-vscode-text transition-colors hover:bg-vscode-activity focus:bg-vscode-activity cursor-text pointer-events-auto shadow-inner truncate px-2 outline-none"
-           >
-             <VscSearch size={14} className="mr-2 opacity-70 shrink-0" />
-             <span className="truncate">oussama_portfolio</span>
+           <div className="pointer-events-auto w-full max-w-[460px] relative">
+             <button
+               type="button"
+               onClick={openSearch}
+               className={`h-[28px] w-full rounded-md border flex items-center text-[12px] transition-colors shadow-inner truncate px-3 outline-none ${searchOpen ? "bg-vscode-activity border-vscode-accent text-white" : "bg-vscode-tab-inactive border-vscode-border text-vscode-text hover:bg-vscode-activity"}`}
+             >
+               <VscSearch size={14} className="mr-2 opacity-70 shrink-0" />
+               <span className="truncate text-left flex-1">Search files in portfolio</span>
+               <span className="ml-3 hidden sm:inline-flex items-center gap-1 text-[10px] text-vscode-text-muted">
+                 Ctrl+P
+               </span>
+             </button>
+
+             {searchOpen && (
+               <div className="absolute top-[calc(100%+8px)] left-0 right-0 rounded-2xl border border-white/10 bg-[#1b1b1b]/95 backdrop-blur-xl shadow-[0_30px_100px_rgba(0,0,0,0.45)] overflow-hidden z-[70]">
+                 <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
+                   <VscSearch size={14} className="text-vscode-text-muted shrink-0" />
+                   <input
+                     ref={searchInputRef}
+                     value={searchQuery}
+                     onChange={(event) => setSearchQuery(event.target.value)}
+                     onKeyDown={(event) => {
+                       if (event.key === "Escape") {
+                         setSearchOpen(false);
+                       }
+                       if (event.key === "Enter" && filteredSearchResults[0]) {
+                         handleSearchResultClick(filteredSearchResults[0].name);
+                       }
+                     }}
+                     placeholder="Search a file, project, skill, or keyword..."
+                     className="w-full bg-transparent text-sm text-white placeholder:text-vscode-text-muted outline-none"
+                   />
+                   <button
+                     type="button"
+                     onClick={() => {
+                       setSearchOpen(false);
+                       setSearchQuery("");
+                     }}
+                     className="rounded-md px-2 py-1 text-xs text-vscode-text-muted hover:text-white hover:bg-white/5 transition-colors"
+                   >
+                     Esc
+                   </button>
+                 </div>
+
+                 <div className="max-h-[280px] overflow-auto custom-scrollbar">
+                   {filteredSearchResults.length > 0 ? (
+                     filteredSearchResults.map((file) => {
+                       const Icon = FILES.find((entry) => entry.name === file.name)?.icon || VscCode;
+                       return (
+                         <button
+                           key={file.name}
+                           type="button"
+                           onClick={() => handleSearchResultClick(file.name)}
+                           className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-b-0"
+                         >
+                           <Icon size={15} style={{ color: FILES.find((entry) => entry.name === file.name)?.color || "#fff" }} className="mt-0.5 shrink-0" />
+                           <div className="min-w-0 flex-1">
+                             <div className="flex items-center justify-between gap-3">
+                               <span className="text-sm text-white font-medium truncate">{file.name}</span>
+                               <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">{file.title}</span>
+                             </div>
+                             <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{file.description}</p>
+                           </div>
+                         </button>
+                       );
+                     })
+                   ) : (
+                     <div className="px-4 py-6 text-sm text-vscode-text-muted">
+                       No matching file found.
+                     </div>
+                   )}
+                 </div>
+               </div>
+             )}
            </div>
         </div>
 
@@ -387,7 +515,7 @@ export default function VSCodeLayout() {
           >
             <VscFiles size={24} />
           </div>
-          <div className="cursor-pointer p-2 text-vscode-text-muted hover:text-white transition-colors">
+          <div className={`cursor-pointer p-2 ${searchOpen ? "text-white" : "text-vscode-text-muted hover:text-white"} transition-colors`} onClick={openSearch}>
             <VscSearch size={22} />
           </div>
           <div className="cursor-pointer p-2 text-vscode-text-muted hover:text-white transition-colors">
@@ -450,7 +578,7 @@ export default function VSCodeLayout() {
       )}
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 bg-vscode-bg h-calc(100vh-22px) h-full ${sidebarOpen ? 'pl-0' : 'pl-12 lg:pl-0'}">
+      <div className={`flex-1 flex flex-col min-w-0 bg-vscode-bg h-calc(100vh-22px) h-full ${sidebarOpen ? "pl-0" : "pl-12 lg:pl-0"}`}>
         {/* Tabs Bar */}
         <div className="flex h-9 bg-vscode-sidebar overflow-x-auto no-scrollbar shrink-0 shadow-sm">
           {openFiles.map((fileName) => {

@@ -22,30 +22,30 @@ export default function AboutFile() {
 
       {/* Soft Skills & Focus */}
       <div className="mb-6">
-        <h2 className="text-vscode-entity font-mono tracking-widest text-xs font-bold uppercase mb-3">Compétences Transversales & Focus</h2>
+        <h2 className="text-vscode-entity font-mono tracking-widest text-xs font-bold uppercase mb-3">Soft Skills & Focus</h2>
         <div className="border border-vscode-border rounded-md p-5 bg-vscode-sidebar/50 grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-vscode-text">
           <div className="flex items-start gap-3">
             <span className="flex-shrink-0">🎧</span>
-            <span><strong className="text-white block">Écoute active</strong> Always attentive to client and team needs.</span>
+            <span><strong className="text-white block">Active listening</strong> Always attentive to client and team needs.</span>
           </div>
           <div className="flex items-start gap-3">
             <span className="flex-shrink-0">🤝</span>
-            <span><strong className="text-white block">Travail d&apos;équipe</strong> Thriving in collaborative environments.</span>
+            <span><strong className="text-white block">Teamwork</strong> Thriving in collaborative environments.</span>
           </div>
           <div className="flex items-start gap-3">
             <span className="flex-shrink-0">⏳</span>
-            <span><strong className="text-white block">Gestion du temps</strong> Delivering projects on schedule efficiently.</span>
+            <span><strong className="text-white block">Time management</strong> Delivering projects on schedule efficiently.</span>
           </div>
           <div className="flex items-start gap-3">
             <span className="flex-shrink-0">⚖️</span>
-            <span><strong className="text-white block">Gestion des conflits</strong> Maintaining harmonious workflows.</span>
+            <span><strong className="text-white block">Conflict resolution</strong> Maintaining harmonious workflows.</span>
           </div>
         </div>
       </div>
 
       {/* Education */}
       <div>
-        <h2 className="text-vscode-entity font-mono tracking-widest text-xs font-bold uppercase mb-3">Formation</h2>
+        <h2 className="text-vscode-entity font-mono tracking-widest text-xs font-bold uppercase mb-3">Education</h2>
         <div className="border border-vscode-border rounded-md p-5 bg-vscode-sidebar/50 flex flex-col space-y-6">
           
           {/* Item 1 */}
@@ -56,8 +56,8 @@ export default function AboutFile() {
               </h3>
               <span className="text-vscode-text-muted font-mono text-sm">2024 - 2026</span>
             </div>
-            <p className="text-vscode-text-muted text-sm mb-1">Youssoufia, Maroc</p>
-            <p className="text-vscode-accent text-sm">2ème année de Formation en Développement Web et Mobile</p>
+            <p className="text-vscode-text-muted text-sm mb-1">Youssoufia, Morocco</p>
+            <p className="text-vscode-accent text-sm">2nd year of training in Web and Mobile Development</p>
           </div>
 
           <div className="w-full h-px bg-vscode-border"></div>
@@ -70,7 +70,7 @@ export default function AboutFile() {
               </h3>
               <span className="text-vscode-text-muted font-mono text-sm">2014 - 2016</span>
             </div>
-            <p className="text-vscode-accent text-sm">Diplôme en Electromécanique des systèmes automatisés</p>
+            <p className="text-vscode-accent text-sm">Degree in Electromechanics of Automated Systems</p>
           </div>
 
           <div className="w-full h-px bg-vscode-border"></div>
@@ -83,8 +83,8 @@ export default function AboutFile() {
               </h3>
               <span className="text-vscode-text-muted font-mono text-sm">2013 - 2014</span>
             </div>
-            <p className="text-vscode-text-muted text-sm mb-1">Youssoufia, Maroc</p>
-            <p className="text-vscode-accent text-sm">Baccalauréat Electrique</p>
+            <p className="text-vscode-text-muted text-sm mb-1">Youssoufia, Morocco</p>
+            <p className="text-vscode-accent text-sm">Electrical Baccalaureate</p>
           </div>
 
         </div>
