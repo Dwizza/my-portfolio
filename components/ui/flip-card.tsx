@@ -38,7 +38,7 @@ export function FlipCard({ front, back, className, trigger = "hover" }: FlipCard
         </div>
 
         {/* Back */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 ring-1 ring-blue-500/30 rounded-2xl overflow-hidden glass">
+        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 ring-1 ring-primary/30 rounded-2xl overflow-hidden glass">
           <div className="w-full h-full flex items-center justify-center">
             {back}
           </div>

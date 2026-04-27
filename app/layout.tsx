@@ -1,18 +1,29 @@
 import type { Metadata } from "next";
-import { Inter, Geist } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import CustomCursor from "@/components/CustomCursor";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
-const inter = Inter({ subsets: ["latin"] });
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Oussama Errahili | Full Stack Developer",
-  description: "Portfolio of Oussama Errahili, an experienced Full Stack Developer specializing in React, Next.js, and Spring Boot.",
+  title: "Oussama Errahili | Full Stack Developer & QA Engineer",
+  description:
+    "Portfolio of Oussama Errahili — Full Stack Developer & QA Engineer specializing in React, Next.js, Spring Boot, and modern web technologies.",
   openGraph: {
-    title: "Oussama Errahili | Full Stack Developer",
-    description: "Portfolio of Oussama Errahili, an experienced Full Stack Developer specializing in React, Next.js, and Spring Boot.",
+    title: "Oussama Errahili | Full Stack Developer & QA Engineer",
+    description:
+      "Portfolio of Oussama Errahili — Full Stack Developer & QA Engineer specializing in React, Next.js, Spring Boot, and modern web technologies.",
     type: "website",
   },
 };
@@ -23,8 +34,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("scroll-smooth dark", "font-sans", geist.variable)} suppressHydrationWarning>
-      <body suppressHydrationWarning className={`${inter.className} min-h-screen bg-background text-foreground selection:bg-blue-500/30 selection:text-blue-50`}>
+    <html
+      lang="en"
+      className={cn(inter.variable, jetbrainsMono.variable)}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                let theme = localStorage.getItem('portfolio-theme') || 'oussama-dark';
+                document.documentElement.classList.add('theme-' + theme);
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body
+        suppressHydrationWarning
+        className="min-h-screen bg-background text-foreground font-sans antialiased"
+      >
+        <CustomCursor />
         {children}
       </body>
     </html>

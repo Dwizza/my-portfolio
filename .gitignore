@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+Thumbs.db
+desktop.ini
 
 # debug
 npm-debug.log*
@@ -30,8 +32,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# local env files
+.env*.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
 .vercel
@@ -40,4 +47,13 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific redundant files (Already in public/)
 1101-1727859750.jpeg
+oussama-image.png
+"oussama errahili CV (devQA cv) .pdf"

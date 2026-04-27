@@ -30,10 +30,10 @@ export function AnimatedTooltip({ content, children }: AnimatedTooltipProps) {
             }}
             className="absolute -top-14 z-[100] flex flex-col items-center justify-center pointer-events-none"
           >
-            <div className="relative flex min-w-max items-center justify-center rounded-lg bg-blue-950/90 px-3 py-1.5 text-xs font-mono font-medium text-blue-50 shadow-xl backdrop-blur-md border border-blue-500/30">
+            <div className="relative flex min-w-max items-center justify-center rounded-lg bg-secondary/90 px-3 py-1.5 text-xs font-mono font-medium text-secondary shadow-xl backdrop-blur-md border border-primary/30">
               {content}
               {/* Arrow */}
-              <div className="absolute -bottom-1 left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r border-blue-500/30 bg-blue-950/90" />
+              <div className="absolute -bottom-1 left-1/2 -z-10 h-2 w-2 -translate-x-1/2 rotate-45 border-b border-r border-primary/30 bg-secondary/90" />
             </div>
           </motion.div>
         )}
