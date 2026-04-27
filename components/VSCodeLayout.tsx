@@ -65,6 +65,27 @@ export default function VSCodeLayout() {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const hasInitializedSidebarRef = useRef(false);
 
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setSearchQuery("");
+  };
+
+  const openSearch = () => {
+    setSearchOpen(true);
+    requestAnimationFrame(() => {
+      searchInputRef.current?.focus();
+      searchInputRef.current?.select();
+    });
+  };
+
+  const toggleSearch = () => {
+    if (searchOpen) {
+      closeSearch();
+    } else {
+      openSearch();
+    }
+  };
+
   useEffect(() => {
     if (hasInitializedSidebarRef.current) return;
     hasInitializedSidebarRef.current = true;
@@ -157,7 +178,6 @@ export default function VSCodeLayout() {
     const handleClickOutside = (e: MouseEvent) => {
       if (topBarRef.current && !topBarRef.current.contains(e.target as Node)) {
         setActiveMenu(null);
-        setSearchOpen(false);
       }
       if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) {
         setSettingsOpen(false);
@@ -196,18 +216,9 @@ export default function VSCodeLayout() {
     setActiveMenu(null);
   };
 
-  const openSearch = () => {
-    setSearchOpen(true);
-    requestAnimationFrame(() => {
-      searchInputRef.current?.focus();
-      searchInputRef.current?.select();
-    });
-  };
-
   const handleSearchResultClick = (fileName: string) => {
     openFile(fileName);
-    setSearchOpen(false);
-    setSearchQuery("");
+    closeSearch();
   };
 
   const groupedSearchResults = {
@@ -469,136 +480,18 @@ export default function VSCodeLayout() {
               <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100"><VscArrowRight size={16} /></div>
            </div>
            <div className="pointer-events-auto w-full max-w-[460px] relative">
-             <button
-               type="button"
-               onClick={openSearch}
-               className={`h-[28px] w-full rounded-md border flex items-center text-[12px] transition-colors shadow-inner truncate px-3 outline-none ${searchOpen ? "bg-vscode-activity border-vscode-accent text-white" : "bg-vscode-tab-inactive border-vscode-border text-vscode-text hover:bg-vscode-activity"}`}
-             >
-               <VscSearch size={14} className="mr-2 opacity-70 shrink-0" />
-               <span className="truncate text-left flex-1">Search files in portfolio</span>
-               <span className="ml-3 hidden sm:inline-flex items-center gap-1 text-[10px] text-vscode-text-muted">
-                 Ctrl+P
-               </span>
-             </button>
-
-             {searchOpen && (
-               <div className="absolute top-[calc(100%+8px)] left-0 right-0 rounded-2xl border border-white/10 bg-[#1b1b1b]/95 backdrop-blur-xl shadow-[0_30px_100px_rgba(0,0,0,0.45)] overflow-hidden z-[70]">
-                 <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
-                   <VscSearch size={14} className="text-vscode-text-muted shrink-0" />
-                   <input
-                     ref={searchInputRef}
-                     value={searchQuery}
-                     onChange={(event) => setSearchQuery(event.target.value)}
-                     onKeyDown={(event) => {
-                       if (event.key === "Escape") {
-                         setSearchOpen(false);
-                       }
-                       if (event.key === "Enter" && filteredSearchResults[0]) {
-                         handleSearchResultClick(filteredSearchResults[0].name);
-                       }
-                     }}
-                     placeholder="Search a file, project, skill, or keyword..."
-                     className="w-full bg-transparent text-sm text-white placeholder:text-vscode-text-muted outline-none"
-                   />
-                   <button
-                     type="button"
-                     onClick={() => {
-                       setSearchOpen(false);
-                       setSearchQuery("");
-                     }}
-                     className="rounded-md px-2 py-1 text-xs text-vscode-text-muted hover:text-white hover:bg-white/5 transition-colors"
-                   >
-                     Esc
-                   </button>
-                 </div>
-
-                 <div className="max-h-[280px] overflow-auto custom-scrollbar">
-                   {filteredSearchResults.length > 0 ? (
-                     <div>
-                       <div className="px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-vscode-text-muted font-bold border-b border-white/5">
-                         Files
-                       </div>
-                       {groupedSearchResults.files.map((entry) => {
-                         const fileMeta = FILES.find((file) => file.name === entry.name);
-                         const Icon = fileMeta?.icon || VscCode;
-                         return (
-                           <button
-                             key={entry.name}
-                             type="button"
-                             onClick={() => handleSearchResultClick(entry.name)}
-                             className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5"
-                           >
-                             <Icon size={15} style={{ color: fileMeta?.color || "#fff" }} className="mt-0.5 shrink-0" />
-                             <div className="min-w-0 flex-1">
-                               <div className="flex items-center justify-between gap-3">
-                                 <span className="text-sm text-white font-medium truncate">{entry.name}</span>
-                                 <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">{entry.title}</span>
-                               </div>
-                               <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{entry.description}</p>
-                             </div>
-                           </button>
-                         );
-                       })}
-
-                       <div className="px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-vscode-text-muted font-bold border-y border-white/5 bg-white/[0.015]">
-                         Content Matches
-                       </div>
-                       {groupedSearchResults.content.map((entry) => {
-                         const fileMeta = FILES.find((file) => file.name === entry.name);
-                         const Icon = fileMeta?.icon || VscCode;
-                         return (
-                           <button
-                             key={`${entry.name}-${entry.title}`}
-                             type="button"
-                             onClick={() => handleSearchResultClick(entry.name)}
-                             className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5"
-                           >
-                             <Icon size={15} style={{ color: fileMeta?.color || "#fff" }} className="mt-0.5 shrink-0" />
-                             <div className="min-w-0 flex-1">
-                               <div className="flex items-center justify-between gap-3">
-                                 <span className="text-sm text-white font-medium truncate">{entry.title}</span>
-                                 <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">{entry.name}</span>
-                               </div>
-                               <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{entry.snippet}</p>
-                             </div>
-                           </button>
-                         );
-                       })}
-
-                       <div className="px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-vscode-text-muted font-bold border-y border-white/5 bg-white/[0.015]">
-                         Quick Actions
-                       </div>
-                       {groupedSearchResults.actions.map((entry) => (
-                         <button
-                           key={entry.name}
-                           type="button"
-                           onClick={() => {
-                             if (entry.target) {
-                               handleSearchResultClick(entry.target);
-                             }
-                           }}
-                           className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-b-0"
-                         >
-                           <VscChevronRight size={15} className="mt-0.5 shrink-0 text-vscode-text-muted" />
-                           <div className="min-w-0 flex-1">
-                             <div className="flex items-center justify-between gap-3">
-                               <span className="text-sm text-white font-medium truncate">{entry.title}</span>
-                               <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">Action</span>
-                             </div>
-                             <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{entry.description}</p>
-                           </div>
-                         </button>
-                       ))}
-                     </div>
-                   ) : (
-                     <div className="px-4 py-6 text-sm text-vscode-text-muted">
-                       No matching file found.
-                     </div>
-                   )}
-                 </div>
-               </div>
-             )}
-           </div>
+            <button
+              type="button"
+              onClick={toggleSearch}
+              className={`h-[28px] w-full rounded-md border flex items-center text-[12px] transition-colors shadow-inner truncate px-3 outline-none ${searchOpen ? "bg-vscode-activity border-vscode-accent text-white" : "bg-vscode-tab-inactive border-vscode-border text-vscode-text hover:bg-vscode-activity"}`}
+            >
+              <VscSearch size={14} className="mr-2 opacity-70 shrink-0" />
+              <span className="truncate text-left flex-1">Search files in portfolio</span>
+              <span className="ml-3 hidden sm:inline-flex items-center gap-1 text-[10px] text-vscode-text-muted">
+                Ctrl+P
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Right: Layout & Window Controls */}
@@ -644,7 +537,7 @@ export default function VSCodeLayout() {
           >
             <VscFiles size={24} />
           </div>
-          <div className={`cursor-pointer p-2 ${searchOpen ? "text-white" : "text-vscode-text-muted hover:text-white"} transition-colors`} onClick={openSearch}>
+          <div className={`cursor-pointer p-2 ${searchOpen ? "text-white" : "text-vscode-text-muted hover:text-white"} transition-colors`} onClick={toggleSearch}>
             <VscSearch size={22} />
           </div>
           <div className="cursor-pointer p-2 text-vscode-text-muted hover:text-white transition-colors">
@@ -801,6 +694,136 @@ export default function VSCodeLayout() {
         </div>
       </div>
     </div>
+
+      {searchOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-start justify-center bg-black/55 px-3 pt-14 sm:pt-20 pointer-events-auto"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Search portfolio"
+        >
+          <button
+            type="button"
+            className="absolute inset-0 cursor-default"
+            onClick={closeSearch}
+            aria-label="Close search"
+          />
+          <div
+            className="relative w-full max-w-[460px] rounded-2xl border border-white/10 bg-[#1b1b1b]/95 backdrop-blur-xl shadow-[0_30px_100px_rgba(0,0,0,0.45)] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
+              <VscSearch size={14} className="text-vscode-text-muted shrink-0" />
+              <input
+                ref={searchInputRef}
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") {
+                    closeSearch();
+                  }
+                  if (event.key === "Enter" && filteredSearchResults[0]) {
+                    handleSearchResultClick(filteredSearchResults[0].name);
+                  }
+                }}
+                placeholder="Search a file, project, skill, or keyword..."
+                className="w-full bg-transparent text-sm text-white placeholder:text-vscode-text-muted outline-none"
+                autoFocus
+              />
+              <button
+                type="button"
+                onClick={closeSearch}
+                className="rounded-md px-2 py-1 text-xs text-vscode-text-muted hover:text-white hover:bg-white/5 transition-colors"
+              >
+                Esc
+              </button>
+            </div>
+
+            <div className="max-h-[min(50vh,280px)] sm:max-h-[280px] overflow-auto custom-scrollbar">
+              {filteredSearchResults.length > 0 ? (
+                <div>
+                  <div className="px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-vscode-text-muted font-bold border-b border-white/5">
+                    Files
+                  </div>
+                  {groupedSearchResults.files.map((entry) => {
+                    const fileMeta = FILES.find((file) => file.name === entry.name);
+                    const Icon = fileMeta?.icon || VscCode;
+                    return (
+                      <button
+                        key={entry.name}
+                        type="button"
+                        onClick={() => handleSearchResultClick(entry.name)}
+                        className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5"
+                      >
+                        <Icon size={15} style={{ color: fileMeta?.color || "#fff" }} className="mt-0.5 shrink-0" />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-3">
+                            <span className="text-sm text-white font-medium truncate">{entry.name}</span>
+                            <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">{entry.title}</span>
+                          </div>
+                          <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{entry.description}</p>
+                        </div>
+                      </button>
+                    );
+                  })}
+
+                  <div className="px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-vscode-text-muted font-bold border-y border-white/5 bg-white/[0.015]">
+                    Content Matches
+                  </div>
+                  {groupedSearchResults.content.map((entry) => {
+                    const fileMeta = FILES.find((file) => file.name === entry.name);
+                    const Icon = fileMeta?.icon || VscCode;
+                    return (
+                      <button
+                        key={`${entry.name}-${entry.title}`}
+                        type="button"
+                        onClick={() => handleSearchResultClick(entry.name)}
+                        className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5"
+                      >
+                        <Icon size={15} style={{ color: fileMeta?.color || "#fff" }} className="mt-0.5 shrink-0" />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-3">
+                            <span className="text-sm text-white font-medium truncate">{entry.title}</span>
+                            <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">{entry.name}</span>
+                          </div>
+                          <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{entry.snippet}</p>
+                        </div>
+                      </button>
+                    );
+                  })}
+
+                  <div className="px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-vscode-text-muted font-bold border-y border-white/5 bg-white/[0.015]">
+                    Quick Actions
+                  </div>
+                  {groupedSearchResults.actions.map((entry) => (
+                    <button
+                      key={entry.name}
+                      type="button"
+                      onClick={() => {
+                        if (entry.target) {
+                          handleSearchResultClick(entry.target);
+                        }
+                      }}
+                      className="w-full text-left px-4 py-3 flex items-start gap-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-b-0"
+                    >
+                      <VscChevronRight size={15} className="mt-0.5 shrink-0 text-vscode-text-muted" />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="text-sm text-white font-medium truncate">{entry.title}</span>
+                          <span className="text-[10px] uppercase tracking-[0.22em] text-vscode-text-muted shrink-0">Action</span>
+                        </div>
+                        <p className="text-xs text-vscode-text-muted mt-1 leading-relaxed">{entry.description}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="px-4 py-6 text-sm text-vscode-text-muted">No matching file found.</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <CVChatBot />
     </div>
