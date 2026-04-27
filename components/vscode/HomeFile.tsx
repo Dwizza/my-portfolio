@@ -119,22 +119,48 @@ export default function HomeFile({ openFile }: { openFile?: (file: string) => vo
         </div>
       </div>
 
-      <div className="flex w-full max-w-[850px] border-y border-vscode-border py-6 mb-10 opacity-0 animate-[fade-in_0.5s_ease-out_0.7s_forwards]">
-        <div className="flex-1 flex flex-col items-center justify-center border-r border-vscode-border hover:bg-white/[0.02] transition-colors">
-          <span style={{ fontFamily: "'Archivo Black', sans-serif" }} className="text-[26px] text-white block mb-1 tracking-wider">2+</span>
-          <span className="font-mono text-[9px] text-vscode-text-muted uppercase tracking-[0.2em] font-bold">Years</span>
+      <div className="grid w-full max-w-[850px] grid-cols-2 sm:grid-cols-4 divide-x divide-y divide-vscode-border border-y border-vscode-border mb-10 opacity-0 animate-[fade-in_0.5s_ease-out_0.7s_forwards]">
+        <div className="flex flex-col items-center px-3 py-6 hover:bg-white/[0.02] transition-colors">
+          <div className="flex h-[34px] w-full items-end justify-center">
+            <span style={{ fontFamily: "'Archivo Black', sans-serif" }} className="text-[26px] leading-none tracking-wider text-white tabular-nums">
+              2+
+            </span>
+          </div>
+          <div className="mt-3 flex min-h-[2.75rem] w-full items-start justify-center text-center">
+            <span className="font-mono text-[9px] font-bold uppercase leading-snug tracking-[0.2em] text-vscode-text-muted">Years</span>
+          </div>
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center border-r border-vscode-border hover:bg-white/[0.02] transition-colors">
-          <span style={{ fontFamily: "'Archivo Black', sans-serif" }} className="text-[26px] text-white block mb-1 tracking-wider">15+</span>
-          <span className="font-mono text-[9px] text-vscode-text-muted uppercase tracking-[0.2em] font-bold">Projects</span>
+        <div className="flex flex-col items-center px-3 py-6 hover:bg-white/[0.02] transition-colors">
+          <div className="flex h-[34px] w-full items-end justify-center">
+            <span style={{ fontFamily: "'Archivo Black', sans-serif" }} className="text-[26px] leading-none tracking-wider text-white tabular-nums">
+              15+
+            </span>
+          </div>
+          <div className="mt-3 flex min-h-[2.75rem] w-full items-start justify-center text-center">
+            <span className="font-mono text-[9px] font-bold uppercase leading-snug tracking-[0.2em] text-vscode-text-muted">Projects</span>
+          </div>
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center border-r border-vscode-border hover:bg-white/[0.02] transition-colors">
-          <span style={{ fontFamily: "'Archivo Black', sans-serif" }} className="text-[26px] text-white block mb-1 tracking-wider">∞</span>
-          <span className="font-mono text-[9px] text-vscode-text-muted uppercase tracking-[0.2em] font-bold">Curiosity</span>
+        <div className="flex flex-col items-center px-3 py-6 hover:bg-white/[0.02] transition-colors">
+          <div className="flex h-[34px] w-full items-end justify-center">
+            <span style={{ fontFamily: "'Archivo Black', sans-serif" }} className="text-[26px] leading-none tracking-wider text-white">
+              ∞
+            </span>
+          </div>
+          <div className="mt-3 flex min-h-[2.75rem] w-full items-start justify-center text-center">
+            <span className="font-mono text-[9px] font-bold uppercase leading-snug tracking-[0.2em] text-vscode-text-muted">Curiosity</span>
+          </div>
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center hover:bg-white/[0.02] transition-colors">
-          <span style={{ fontFamily: "'Archivo Black', sans-serif" }} className="text-[26px] text-white block mb-1 tracking-wider">↑</span>
-          <span className="font-mono text-[9px] text-vscode-text-muted uppercase tracking-[0.2em] font-bold">Always Learning</span>
+        <div className="flex flex-col items-center px-3 py-6 hover:bg-white/[0.02] transition-colors">
+          <div className="flex h-[34px] w-full items-end justify-center">
+            <span style={{ fontFamily: "'Archivo Black', sans-serif" }} className="text-[26px] leading-none tracking-wider text-white">
+              ↑
+            </span>
+          </div>
+          <div className="mt-3 flex min-h-[2.75rem] w-full items-start justify-center text-center">
+            <span className="max-w-[9rem] font-mono text-[9px] font-bold uppercase leading-snug tracking-[0.2em] text-vscode-text-muted">
+              Always Learning
+            </span>
+          </div>
         </div>
       </div>
 

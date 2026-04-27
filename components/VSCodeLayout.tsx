@@ -255,20 +255,22 @@ export default function VSCodeLayout() {
   return (
     <div className="flex flex-col h-screen w-full bg-vscode-bg text-vscode-text font-sans overflow-hidden">
       {/* Single Row Title & Menu Bar */}
-      <div ref={topBarRef} className="h-[35px] w-full flex items-center shrink-0 select-none bg-vscode-bg border-b border-vscode-border relative z-50">
-        
+      <div
+        ref={topBarRef}
+        className="h-[35px] min-h-[35px] w-full min-w-0 flex flex-nowrap items-center shrink-0 select-none overflow-x-auto overflow-y-hidden no-scrollbar touch-pan-x bg-vscode-bg border-b border-vscode-border relative z-50"
+      >
         {/* Left: VS Logo & Menus */}
-        <div className="flex items-center text-[13px] text-vscode-text font-sans h-full pl-3 shrink-0">
-          <div className="text-vscode-accent mr-3 flex items-center">
+        <div className="flex items-center text-[12px] sm:text-[13px] text-vscode-text font-sans h-full pl-1.5 sm:pl-3 shrink-0">
+          <div className="text-vscode-accent mr-1.5 sm:mr-3 flex items-center shrink-0">
             <VscVscode size={16} />
           </div>
-          
-          <div className="flex items-center space-x-0.5">
+
+          <div className="flex items-center space-x-0.5 shrink-0">
             {/* File Menu */}
             <div className="relative">
-            <span 
-              className={`cursor-pointer px-2 py-0.5 rounded transition-colors ${activeMenu === 'File' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
-              onClick={(e) => toggleMenu(e, 'File')}
+            <span
+              className={`cursor-pointer px-1.5 sm:px-2 py-0.5 rounded transition-colors shrink-0 ${activeMenu === "File" ? "bg-vscode-activity border border-white/20 text-white" : "border border-transparent hover:bg-white/10 hover:text-white"}`}
+              onClick={(e) => toggleMenu(e, "File")}
             >
               File
             </span>
@@ -307,7 +309,7 @@ export default function VSCodeLayout() {
           {/* Edit Menu */}
           <div className="relative">
             <span 
-              className={`cursor-pointer px-2 py-0.5 rounded transition-colors ${activeMenu === 'Edit' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
+              className={`cursor-pointer shrink-0 px-1.5 sm:px-2 py-0.5 rounded transition-colors ${activeMenu === 'Edit' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
               onClick={(e) => toggleMenu(e, 'Edit')}
             >
               Edit
@@ -330,7 +332,7 @@ export default function VSCodeLayout() {
           {/* Selection Menu */}
           <div className="relative">
             <span 
-              className={`cursor-pointer px-2 py-0.5 rounded transition-colors ${activeMenu === 'Selection' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
+              className={`cursor-pointer shrink-0 px-1.5 sm:px-2 py-0.5 rounded transition-colors ${activeMenu === 'Selection' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
               onClick={(e) => toggleMenu(e, 'Selection')}
             >
               Selection
@@ -350,7 +352,7 @@ export default function VSCodeLayout() {
           {/* View Menu */}
           <div className="relative">
             <span 
-              className={`cursor-pointer px-2 py-0.5 rounded transition-colors ${activeMenu === 'View' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
+              className={`cursor-pointer shrink-0 px-1.5 sm:px-2 py-0.5 rounded transition-colors ${activeMenu === 'View' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
               onClick={(e) => toggleMenu(e, 'View')}
             >
               View
@@ -387,7 +389,7 @@ export default function VSCodeLayout() {
           {/* Go Menu */}
           <div className="relative">
             <span 
-              className={`cursor-pointer px-2 py-0.5 rounded transition-colors ${activeMenu === 'Go' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
+              className={`cursor-pointer shrink-0 px-1.5 sm:px-2 py-0.5 rounded transition-colors ${activeMenu === 'Go' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
               onClick={(e) => toggleMenu(e, 'Go')}
             >
               Go
@@ -410,7 +412,7 @@ export default function VSCodeLayout() {
           {/* Run Menu */}
           <div className="relative">
             <span 
-              className={`cursor-pointer px-2 py-0.5 rounded transition-colors ${activeMenu === 'Run' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
+              className={`cursor-pointer shrink-0 px-1.5 sm:px-2 py-0.5 rounded transition-colors ${activeMenu === 'Run' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
               onClick={(e) => toggleMenu(e, 'Run')}
             >
               Run
@@ -430,7 +432,7 @@ export default function VSCodeLayout() {
           {/* Terminal Menu */}
           <div className="relative">
             <span 
-              className={`cursor-pointer px-2 py-0.5 rounded transition-colors ${activeMenu === 'Terminal' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
+              className={`cursor-pointer shrink-0 px-1.5 sm:px-2 py-0.5 rounded transition-colors ${activeMenu === 'Terminal' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
               onClick={(e) => toggleMenu(e, 'Terminal')}
             >
               Terminal
@@ -450,7 +452,7 @@ export default function VSCodeLayout() {
           {/* Help Menu */}
           <div className="relative">
             <span 
-              className={`cursor-pointer px-2 py-0.5 rounded transition-colors ${activeMenu === 'Help' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
+              className={`cursor-pointer shrink-0 px-1.5 sm:px-2 py-0.5 rounded transition-colors ${activeMenu === 'Help' ? 'bg-vscode-activity border border-white/20 text-white' : 'border border-transparent hover:bg-white/10 hover:text-white'}`}
               onClick={(e) => toggleMenu(e, 'Help')}
             >
               Help
@@ -474,55 +476,60 @@ export default function VSCodeLayout() {
         </div>
 
         {/* Center: Search Bar & Navigation */}
-        <div className="flex-1 flex justify-center items-center h-full pointer-events-none min-w-0 px-2 lg:px-4 relative">
-           <div className="hidden lg:flex space-x-1 text-vscode-text mr-3 pointer-events-auto shrink-0">
-              <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100"><VscArrowLeft size={16} /></div>
-              <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100"><VscArrowRight size={16} /></div>
-           </div>
-           <div className="pointer-events-auto w-full max-w-[460px] relative">
+        <div className="flex min-w-[140px] flex-1 justify-center items-center h-full min-h-0 pointer-events-none px-1.5 sm:px-2 lg:px-4 relative">
+          <div className="hidden lg:flex space-x-1 text-vscode-text mr-3 pointer-events-auto shrink-0">
+            <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100">
+              <VscArrowLeft size={16} />
+            </div>
+            <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100">
+              <VscArrowRight size={16} />
+            </div>
+          </div>
+          <div className="pointer-events-auto w-full min-w-0 max-w-[460px] relative">
             <button
               type="button"
               onClick={toggleSearch}
-              className={`h-[28px] w-full rounded-md border flex items-center text-[12px] transition-colors shadow-inner truncate px-3 outline-none ${searchOpen ? "bg-vscode-activity border-vscode-accent text-white" : "bg-vscode-tab-inactive border-vscode-border text-vscode-text hover:bg-vscode-activity"}`}
+              className={`h-[28px] w-full rounded-md border flex items-center text-[11px] sm:text-[12px] transition-colors shadow-inner truncate px-2 sm:px-3 outline-none ${searchOpen ? "bg-vscode-activity border-vscode-accent text-white" : "bg-vscode-tab-inactive border-vscode-border text-vscode-text hover:bg-vscode-activity"}`}
             >
-              <VscSearch size={14} className="mr-2 opacity-70 shrink-0" />
-              <span className="truncate text-left flex-1">Search files in portfolio</span>
-              <span className="ml-3 hidden sm:inline-flex items-center gap-1 text-[10px] text-vscode-text-muted">
-                Ctrl+P
-              </span>
+              <VscSearch size={14} className="mr-1.5 sm:mr-2 opacity-70 shrink-0" />
+              <span className="min-w-0 truncate text-left flex-1">Search files in portfolio</span>
+              <span className="ml-2 hidden sm:inline-flex shrink-0 items-center gap-1 text-[10px] text-vscode-text-muted">Ctrl+P</span>
             </button>
           </div>
         </div>
 
         {/* Right: Layout & Window Controls */}
-        <div className="flex items-center justify-end h-full space-x-2 pointer-events-auto shrink-0">
-           <div className="flex items-center text-vscode-text space-x-0.5 mr-2">
-             <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100" onClick={() => setSidebarOpen(!sidebarOpen)}>
-                <VscLayoutSidebarLeft size={14} />
-             </div>
-             <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100">
-                <VscLayoutPanel size={14} />
-             </div>
-             <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100">
-                <VscLayoutSidebarRight size={14} /> 
-             </div>
-             <div className="p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100">
-                <VscLayout size={14} /> 
-             </div>
-           </div>
+        <div className="flex items-center justify-end h-full space-x-0.5 sm:space-x-2 pointer-events-auto shrink-0 pr-1 sm:pr-0">
+          <div className="flex items-center text-vscode-text space-x-0 sm:space-x-0.5 mr-0 sm:mr-2">
+            <div
+              className="p-0.5 sm:p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+            >
+              <VscLayoutSidebarLeft size={14} />
+            </div>
+            <div className="p-0.5 sm:p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100 max-[380px]:hidden">
+              <VscLayoutPanel size={14} />
+            </div>
+            <div className="p-0.5 sm:p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100 max-[420px]:hidden">
+              <VscLayoutSidebarRight size={14} />
+            </div>
+            <div className="p-0.5 sm:p-1 hover:bg-white/10 rounded cursor-pointer opacity-80 hover:opacity-100">
+              <VscLayout size={14} />
+            </div>
+          </div>
 
-           {/* Window Controls */}
-           <div className="flex h-full text-vscode-text">
-             <div className="h-full px-4 flex items-center hover:bg-white/10 cursor-pointer">
-               <VscChromeMinimize size={14} />
-             </div>
-             <div className="h-full px-4 flex items-center hover:bg-white/10 cursor-pointer">
-               <VscChromeMaximize size={14} />
-             </div>
-             <div className="h-full px-4 flex items-center hover:bg-[#e81123] hover:text-white cursor-pointer transition-colors">
-               <VscChromeClose size={14} />
-             </div>
-           </div>
+          {/* Window Controls */}
+          <div className="hidden sm:flex h-full text-vscode-text">
+            <div className="h-full px-2 md:px-4 flex items-center hover:bg-white/10 cursor-pointer">
+              <VscChromeMinimize size={14} />
+            </div>
+            <div className="h-full px-2 md:px-4 flex items-center hover:bg-white/10 cursor-pointer">
+              <VscChromeMaximize size={14} />
+            </div>
+            <div className="h-full px-2 md:px-4 flex items-center hover:bg-[#e81123] hover:text-white cursor-pointer transition-colors">
+              <VscChromeClose size={14} />
+            </div>
+          </div>
         </div>
       </div>
 
