@@ -38,6 +38,7 @@ import SkillsFile from "./vscode/SkillsFile";
 import ProjectsFile from "./vscode/ProjectsFile";
 import ExperienceFile from "./vscode/ExperienceFile";
 import ContactFile from "./vscode/ContactFile";
+import CVChatBot from "./vscode/CVChatBot";
 import SettingsMenu from "./vscode/SettingsMenu";
 
 const FILES = [
@@ -435,7 +436,7 @@ export default function VSCodeLayout() {
                   <span className="font-medium text-vscode-text hover:text-white">Keyboard Shortcuts</span>
                 </div>
                 <div className="h-px bg-white/5 my-1.5"></div>
-                <a href="https://github.com/OussamaErrahili" target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 hover:bg-white/10 hover:text-white cursor-pointer flex justify-between no-underline text-inherit block" onClick={() => setActiveMenu(null)}>
+                <a href="https://github.com/Dwizza" target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 hover:bg-white/10 hover:text-white cursor-pointer flex justify-between no-underline text-inherit block" onClick={() => setActiveMenu(null)}>
                   <span className="font-medium text-vscode-text hover:text-white">GitHub</span><span className="text-vscode-text-muted text-[11px]">↗</span>
                 </a>
                 <div className="px-4 py-1.5 hover:bg-white/10 hover:text-white cursor-pointer" onClick={() => handleMenuAction(() => openFile("about.html"))}>
@@ -778,6 +779,8 @@ export default function VSCodeLayout() {
         </div>
       </div>
     </div>
+
+      <CVChatBot />
     </div>
   );
 }

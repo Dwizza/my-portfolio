@@ -34,7 +34,7 @@ export default function ProjectsFile() {
         >
           <div className="flex justify-between items-start mb-5">
             <div className="text-2xl">🚗</div>
-            <a href="https://github.com/OussamaErrahili" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/10 rounded-sm text-vscode-text-muted text-[11px] font-mono hover:border-white/30 hover:text-white transition-all duration-300">
+            <a href="https://github.com/Dwizza" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/10 rounded-sm text-vscode-text-muted text-[11px] font-mono hover:border-white/30 hover:text-white transition-all duration-300">
               GitHub <VscLinkExternal size={12} />
             </a>
           </div>
@@ -65,7 +65,7 @@ export default function ProjectsFile() {
         >
           <div className="flex justify-between items-start mb-5">
             <div className="text-2xl">📦</div>
-            <a href="https://github.com/OussamaErrahili" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/10 rounded-sm text-vscode-text-muted text-[11px] font-mono hover:border-white/30 hover:text-white transition-all duration-300">
+            <a href="https://github.com/Dwizza" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/10 rounded-sm text-vscode-text-muted text-[11px] font-mono hover:border-white/30 hover:text-white transition-all duration-300">
               GitHub <VscLinkExternal size={12} />
             </a>
           </div>

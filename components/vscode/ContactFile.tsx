@@ -103,7 +103,7 @@ export default function ContactFile() {
                   <span className="flex-1">Email</span>
                   <span className="text-vscode-text-muted text-xs">fastest response</span>
                 </a>
-                <a href="https://github.com/OussamaErrahili" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/10 px-4 py-3 text-vscode-text hover:text-white hover:border-white/25 hover:bg-white/5 transition-all group">
+                <a href="https://github.com/Dwizza" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/10 px-4 py-3 text-vscode-text hover:text-white hover:border-white/25 hover:bg-white/5 transition-all group">
                   <div className="w-10 h-10 rounded-lg border border-white/10 bg-vscode-sidebar flex items-center justify-center group-hover:border-vscode-accent transition-colors">
                     <VscGithubInverted size={18} />
                   </div>
