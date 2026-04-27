@@ -12,7 +12,7 @@ export default function ProjectsFile() {
       </p>
 
       <h1 
-        className="font-sans font-extrabold leading-none text-white tracking-[-2px] text-5xl md:text-6xl mb-2 opacity-0 animate-[slide-up-fade_0.5s_ease-out_forwards]"
+        className="font-sans font-extrabold leading-none text-white tracking-[-2px] text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-2 opacity-0 animate-[slide-up-fade_0.5s_ease-out_forwards]"
         style={{ animationDelay: "0.15s" }}
       >
         Projects
@@ -25,14 +25,14 @@ export default function ProjectsFile() {
         const projects = [ ...shipped, ...building ]
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
         
         {/* Project 1: EcoRide */}
         <div 
-          className="border border-white/10 rounded-md p-6 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-300 flex flex-col group opacity-0 animate-[slide-up-fade_0.5s_ease-out_forwards]"
+          className="border border-white/10 rounded-md p-4 sm:p-5 md:p-6 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-300 flex flex-col group opacity-0 animate-[slide-up-fade_0.5s_ease-out_forwards]"
           style={{ animationDelay: "0.3s" }}
         >
-          <div className="flex justify-between items-start mb-5">
+          <div className="flex justify-between items-start mb-3 sm:mb-4 md:mb-5">
             <div className="text-2xl">🚗</div>
             <a href="https://github.com/Dwizza" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/10 rounded-sm text-vscode-text-muted text-[11px] font-mono hover:border-white/30 hover:text-white transition-all duration-300">
               GitHub <VscLinkExternal size={12} />
@@ -60,10 +60,10 @@ export default function ProjectsFile() {
 
         {/* Project 2: Logistics Fleet Management */}
         <div 
-          className="border border-white/10 rounded-md p-6 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-300 flex flex-col group opacity-0 animate-[slide-up-fade_0.5s_ease-out_forwards]"
+          className="border border-white/10 rounded-md p-4 sm:p-5 md:p-6 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-300 flex flex-col group opacity-0 animate-[slide-up-fade_0.5s_ease-out_forwards]"
           style={{ animationDelay: "0.4s" }}
         >
-          <div className="flex justify-between items-start mb-5">
+          <div className="flex justify-between items-start mb-3 sm:mb-4 md:mb-5">
             <div className="text-2xl">📦</div>
             <a href="https://github.com/Dwizza" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/10 rounded-sm text-vscode-text-muted text-[11px] font-mono hover:border-white/30 hover:text-white transition-all duration-300">
               GitHub <VscLinkExternal size={12} />

@@ -7,11 +7,11 @@ export default function ExperienceFile() {
         {"// experience.ts : where I've worked"}
       </p>
 
-      <h1 className="font-sans font-extrabold leading-none text-white tracking-[-2px] text-5xl md:text-6xl mb-8">
+      <h1 className="font-sans font-extrabold leading-none text-white tracking-[-2px] text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-8">
         Experience
       </h1>
 
-      <div className="relative border-l border-vscode-border ml-3 pl-8 py-2">
+      <div className="relative border-l border-vscode-border ml-1 sm:ml-2 md:ml-3 pl-5 sm:pl-6 md:pl-8 py-2">
         {/* Experience Item */}
         <div className="relative mb-12">
           {/* Timeline Dot */}
@@ -19,7 +19,7 @@ export default function ExperienceFile() {
           
           <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
             <div>
-              <h2 className="text-xl font-bold text-white font-sans tracking-tight">Full Stack Developer Intern</h2>
+              <h2 className="text-lg sm:text-xl font-bold text-white font-sans tracking-tight">Full Stack Developer Intern</h2>
               <p className="text-vscode-accent font-mono text-sm mt-0.5">TwaadUp, Agadir</p>
             </div>
             <div className="mt-2 md:mt-0 px-3 py-1 bg-white/[0.03] border border-white/10 rounded-sm text-vscode-text-muted text-xs font-mono inline-block w-max">

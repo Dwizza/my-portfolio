@@ -54,7 +54,7 @@ const FILES = [
 export default function VSCodeLayout() {
   const [activeFile, setActiveFile] = useState("home.tsx");
   const [openFiles, setOpenFiles] = useState(["home.tsx", "skills.json", "projects.js", "about.html", "experience.ts"]);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [explorerOpen, setExplorerOpen] = useState(true);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -63,6 +63,17 @@ export default function VSCodeLayout() {
   const topBarRef = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const hasInitializedSidebarRef = useRef(false);
+
+  useEffect(() => {
+    if (hasInitializedSidebarRef.current) return;
+    hasInitializedSidebarRef.current = true;
+
+    // On first load: keep sidebar closed on mobile; open it on desktop.
+    if (window.innerWidth >= 1024) {
+      setSidebarOpen(true);
+    }
+  }, []);
 
   const searchEntries = [
     {
@@ -212,6 +223,9 @@ export default function VSCodeLayout() {
       setOpenFiles([...openFiles, fileName]);
     }
     setActiveFile(fileName);
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setSidebarOpen(false);
+    }
   };
 
   const closeFile = (e: React.MouseEvent | undefined, fileName: string) => {
@@ -620,9 +634,9 @@ export default function VSCodeLayout() {
       </div>
 
       {/* Main App Container */}
-      <div className="flex flex-1 w-full overflow-hidden border-vscode-border border-t">
+      <div className="relative flex flex-1 w-full overflow-hidden border-vscode-border border-t pb-[22px] min-h-0">
       {/* Activity Bar */}
-      <div className="w-12 h-calc(100vh-22px) bg-vscode-activity flex flex-col items-center justify-between py-2 select-none shrink-0 border-r border-vscode-border z-20 absolute lg:relative h-full">
+      <div className="w-12 bg-vscode-activity flex flex-col items-center justify-between py-2 select-none shrink-0 border-r border-vscode-border z-20 absolute lg:relative h-full">
         <div className="flex flex-col space-y-4 w-full items-center pt-2">
           <div
             className={`cursor-pointer p-2 rounded-lg transition-colors ${sidebarOpen ? "text-white" : "text-vscode-text-muted hover:text-white"}`}
@@ -654,7 +668,14 @@ export default function VSCodeLayout() {
 
       {/* Sidebar (Explorer) */}
       {sidebarOpen && (
-        <div className="w-64 bg-vscode-sidebar flex flex-col shrink-0 border-r border-vscode-border transition-all transform lg:w-64 h-full absolute left-12 lg:relative lg:left-0 z-10 shadow-xl lg:shadow-none">
+        <>
+        <button
+          type="button"
+          aria-label="Close sidebar overlay"
+          className="absolute inset-0 z-[25] bg-black/40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+        <div className="w-[85vw] max-w-[300px] sm:w-64 lg:w-64 bg-vscode-sidebar flex flex-col shrink-0 border-r border-vscode-border transition-all transform h-full absolute left-12 lg:relative lg:left-0 z-[35] shadow-3xl lg:shadow-none">
           <div className="h-8 px-5 text-[11px] tracking-wide text-vscode-text font-sans flex items-center shrink-0 uppercase mt-1">
             Explorer
           </div>
@@ -690,10 +711,11 @@ export default function VSCodeLayout() {
             )}
           </div>
         </div>
+        </>
       )}
 
       {/* Main Content Area */}
-      <div className={`flex-1 flex flex-col min-w-0 bg-vscode-bg h-calc(100vh-22px) h-full ${sidebarOpen ? "pl-0" : "pl-12 lg:pl-0"}`}>
+      <div className="flex-1 flex flex-col min-w-0 min-h-0 bg-vscode-bg pl-12 lg:pl-0">
         {/* Tabs Bar */}
         <div className="flex h-9 bg-vscode-sidebar overflow-x-auto no-scrollbar shrink-0 shadow-sm">
           {openFiles.map((fileName) => {
@@ -755,7 +777,7 @@ export default function VSCodeLayout() {
       </div>
       
       {/* Status Bar */}
-      <div className="h-[22px] w-full bg-vscode-accent absolute bottom-0 flex items-center justify-between px-2 text-white text-[11px] select-none z-30 font-sans tracking-wide">
+      <div className="h-[22px] w-full bg-vscode-accent absolute bottom-0 left-0 flex items-center justify-between px-2 text-white text-[11px] select-none z-30 font-sans tracking-wide">
         <div className="flex items-center space-x-4">
           <div className="flex items-center cursor-pointer hover:bg-white/20 px-1 rounded transition-colors">
             <VscSourceControl size={14} className="mr-1" /> main*

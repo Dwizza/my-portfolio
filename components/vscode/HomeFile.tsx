@@ -48,7 +48,7 @@ export default function HomeFile({ openFile }: { openFile?: (file: string) => vo
   }, [displayText, isDeleting, roleIndex]);
 
   return (
-    <div className="home-content py-8 pl-4 md:pl-10 max-w-[1200px]">
+    <div className="home-content py-6 px-4 md:pl-10 max-w-[1200px] w-full">
       <p className="font-mono text-[13px] text-vscode-entity font-medium mb-6 opacity-0 animate-[fade-in_0.5s_ease-out_0.1s_forwards]">
         {"// hello world !! Welcome to my portfolio"}
       </p>
@@ -82,14 +82,15 @@ export default function HomeFile({ openFile }: { openFile?: (file: string) => vo
         <span className="text-vscode-keyword animate-[pulse-glow_1.5s_ease-in-out_infinite] ml-[1px]">|</span>
       </p>
 
-      <p className="font-mono text-[13px] text-vscode-text-muted leading-[2] max-w-[650px] mb-12 opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards] tracking-wide">
+      <p className="font-mono text-[13px] text-vscode-text-muted leading-[2] w-full max-w-[650px] mb-12 opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards] tracking-wide">
         I live at the crossroads of <strong className="text-vscode-entity font-medium">backend engineering</strong>,{" "}
         <strong className="text-vscode-control font-medium">quality assurance</strong>, and{" "}
         <strong className="text-vscode-blue font-medium">frontend development</strong>. I build systems that are genuinely{" "}
         <strong className="text-vscode-blue font-medium">robust and scalable</strong>.
       </p>
 
-      <div className="flex gap-3 flex-wrap mb-16 opacity-0 animate-[fade-in_0.5s_ease-out_0.6s_forwards]">
+      <div className="flex w-full mb-16 opacity-0 animate-[fade-in_0.5s_ease-out_0.6s_forwards]">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
         <button 
           onClick={() => openFile?.("projects.js")}
           className="inline-flex items-center gap-2 px-6 py-2.5 bg-vscode-accent text-white text-[12px] font-mono rounded-sm hover:bg-vscode-blue2 transition-colors cursor-pointer border-none font-medium"
@@ -111,10 +112,11 @@ export default function HomeFile({ openFile }: { openFile?: (file: string) => vo
         <a 
           href="/oussama_errahili_cv.pdf"
           download
-          className="inline-flex items-center gap-2 px-6 py-2.5 bg-transparent border border-white/20 text-vscode-text text-[12px] font-mono rounded-sm hover:bg-white/5 transition-colors cursor-pointer no-underline"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-transparent border border-white/20 text-vscode-text text-[12px] font-mono rounded-sm hover:bg-white/5 transition-colors cursor-[pointer] no-underline"
         >
           <span style={{ color: "rgb(215, 186, 125)" }}>📄</span> Download CV
         </a>
+        </div>
       </div>
 
       <div className="flex w-full max-w-[850px] border-y border-vscode-border py-6 mb-10 opacity-0 animate-[fade-in_0.5s_ease-out_0.7s_forwards]">
@@ -176,4 +178,5 @@ export default function HomeFile({ openFile }: { openFile?: (file: string) => vo
       `}} />
     </div>
   );
+
 }

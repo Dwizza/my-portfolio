@@ -274,7 +274,7 @@ export default function CVChatBot() {
       <button
         type="button"
         onClick={() => setIsOpen((current) => !current)}
-        className="pointer-events-auto fixed right-3 bottom-3 z-[73] flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-gray-700 to-gray-900 text-white shadow-lg transition-all hover:scale-110 hover:from-blue-600 hover:to-purple-700"
+        className="pointer-events-auto fixed right-3 bottom-5 sm:bottom-3 z-[73] flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-gray-700 to-gray-900 text-white shadow-lg transition-all hover:scale-110 hover:from-blue-600 hover:to-purple-700"
         aria-expanded={isOpen}
       >
         <VscCommentDiscussion size={20} />

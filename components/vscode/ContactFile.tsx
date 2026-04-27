@@ -55,8 +55,8 @@ export default function ContactFile() {
   };
 
   return (
-    <div className="home-content pb-10 h-full flex flex-col relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
+    <div className="home-content pb-24 sm:pb-10 min-h-full flex flex-col relative">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         <div className="absolute -top-20 -right-16 h-64 w-64 rounded-full bg-vscode-accent/15 blur-3xl" />
         <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-vscode-blue2/10 blur-3xl" />
       </div>
@@ -78,7 +78,7 @@ export default function ContactFile() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 xl:gap-8 flex-1">
           {/* Left Side: Info */}
-          <div className="space-y-6">
+          <div className="space-y-6 order-2 lg:order-1">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-md shadow-[0_20px_80px_rgba(0,0,0,0.22)]">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-11 h-11 rounded-xl bg-vscode-accent/15 border border-vscode-accent/20 flex items-center justify-center text-vscode-accent">
@@ -135,7 +135,7 @@ export default function ContactFile() {
           </div>
 
           {/* Right Side: Form */}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 md:p-6 backdrop-blur-md shadow-[0_20px_80px_rgba(0,0,0,0.22)]">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 md:p-6 backdrop-blur-md shadow-[0_20px_80px_rgba(0,0,0,0.22)] order-1 lg:order-2">
             <div className="flex items-center justify-between mb-5">
               <div>
                 <p className="text-xs uppercase tracking-[0.28em] text-vscode-text-muted font-bold">Send message</p>

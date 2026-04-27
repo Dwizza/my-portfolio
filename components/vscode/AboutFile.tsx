@@ -2,12 +2,12 @@ import React from "react";
 
 export default function AboutFile() {
   return (
-    <div className="home-content pb-10">
+    <div className="home-content pb-10 px-2 sm:px-4 md:px-0">
       <p className="text-sm text-vscode-comment mb-2.5">
         &lt;!-- about.html - Oussama Errahili --&gt;
       </p>
 
-      <h1 className="font-sans font-extrabold leading-none text-white tracking-[-2px] text-5xl md:text-6xl mb-2">
+      <h1 className="font-sans font-extrabold leading-none text-white tracking-[-2px] text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-2">
         About Me
       </h1>
       
@@ -16,14 +16,14 @@ export default function AboutFile() {
       </p>
 
       {/* Intro Block */}
-      <div className="border border-vscode-border rounded-md p-5 bg-vscode-sidebar/50 mb-6 font-mono text-sm leading-relaxed text-vscode-text-muted">
+      <div className="border border-vscode-border rounded-md p-3 sm:p-5 bg-vscode-sidebar/50 mb-6 font-mono text-sm leading-relaxed text-vscode-text-muted">
         Hi! I&apos;m <strong className="text-vscode-accent font-medium">Oussama Errahili</strong>, a developer living at the crossroads of <strong className="text-vscode-accent font-medium">backend engineering</strong>, <strong className="text-vscode-accent font-medium">frontend development</strong>, and <strong className="text-vscode-accent font-medium">quality assurance</strong>. I love building systems that are not just functional but genuinely <strong className="text-vscode-accent font-medium">intelligent and scalable</strong>. Currently a <strong className="text-vscode-accent font-medium">Full Stack Developer Student at YouCode</strong>, learning and building modern applications daily.
       </div>
 
       {/* Soft Skills & Focus */}
       <div className="mb-6">
         <h2 className="text-vscode-entity font-mono tracking-widest text-xs font-bold uppercase mb-3">Soft Skills & Focus</h2>
-        <div className="border border-vscode-border rounded-md p-5 bg-vscode-sidebar/50 grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-vscode-text">
+        <div className="border border-vscode-border rounded-md p-3 sm:p-5 bg-vscode-sidebar/50 grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-vscode-text">
           <div className="flex items-start gap-3">
             <span className="flex-shrink-0">🎧</span>
             <span><strong className="text-white block">Active listening</strong> Always attentive to client and team needs.</span>
@@ -46,7 +46,7 @@ export default function AboutFile() {
       {/* Education */}
       <div>
         <h2 className="text-vscode-entity font-mono tracking-widest text-xs font-bold uppercase mb-3">Education</h2>
-        <div className="border border-vscode-border rounded-md p-5 bg-vscode-sidebar/50 flex flex-col space-y-6">
+        <div className="border border-vscode-border rounded-md p-3 sm:p-5 bg-vscode-sidebar/50 flex flex-col space-y-6">
           
           {/* Item 1 */}
           <div>
