@@ -62,6 +62,7 @@ export default function VSCodeLayout() {
   const [searchQuery, setSearchQuery] = useState("");
   const topBarRef = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<HTMLDivElement>(null);
+  const settingsMenuRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const hasInitializedSidebarRef = useRef(false);
 
@@ -179,13 +180,18 @@ export default function VSCodeLayout() {
       if (topBarRef.current && !topBarRef.current.contains(e.target as Node)) {
         setActiveMenu(null);
       }
-      if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) {
-        setSettingsOpen(false);
+      if (settingsOpen) {
+        const target = e.target as Node;
+        const clickedSettingsButton = settingsRef.current?.contains(target) ?? false;
+        const clickedSettingsMenu = settingsMenuRef.current?.contains(target) ?? false;
+        if (!clickedSettingsButton && !clickedSettingsMenu) {
+          setSettingsOpen(false);
+        }
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [settingsOpen]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -536,7 +542,7 @@ export default function VSCodeLayout() {
       {/* Main App Container */}
       <div className="relative flex flex-1 w-full overflow-hidden border-vscode-border border-t pb-[22px] min-h-0">
       {/* Activity Bar */}
-      <div className="w-12 bg-vscode-activity flex flex-col items-center justify-between py-2 select-none shrink-0 border-r border-vscode-border z-20 absolute lg:relative h-full">
+      <div className="w-12 bg-vscode-activity flex flex-col items-center justify-between py-2 select-none shrink-0 border-r border-vscode-border z-[70] absolute lg:relative lg:z-20 h-full">
         <div className="flex flex-col space-y-4 w-full items-center pt-2">
           <div
             className={`cursor-pointer p-2 rounded-lg transition-colors ${sidebarOpen ? "text-white" : "text-vscode-text-muted hover:text-white"}`}
@@ -561,7 +567,7 @@ export default function VSCodeLayout() {
             onClick={() => setSettingsOpen(!settingsOpen)}
           >
             <VscSettingsGear size={22} />
-            {settingsOpen && <SettingsMenu onClose={() => setSettingsOpen(false)} />}
+            {settingsOpen && <SettingsMenu onClose={() => setSettingsOpen(false)} menuRef={settingsMenuRef} />}
           </div>
         </div>
       </div>

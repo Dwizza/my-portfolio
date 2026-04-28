@@ -1,12 +1,20 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { VscCheck, VscTerminal, VscLayoutSidebarLeft, VscClose, VscChevronUp, VscChevronDown } from "react-icons/vsc";
 
 interface SettingsMenuProps {
   onClose: () => void;
+  menuRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-export default function SettingsMenu({ onClose }: SettingsMenuProps) {
+export default function SettingsMenu({ onClose, menuRef }: SettingsMenuProps) {
   const [activeTheme, setActiveTheme] = React.useState("oussama-dark");
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   React.useEffect(() => {
     const savedTheme = localStorage.getItem("portfolio-theme") || "oussama-dark";
@@ -36,10 +44,16 @@ export default function SettingsMenu({ onClose }: SettingsMenuProps) {
     { id: "gruvbox", name: "Gruvbox", icon: "🔥", dot: "bg-[#fabd2f]" },
   ];
 
-  return (
-    <div 
-      className="absolute bottom-10 left-12 w-[300px] md:w-[320px] bg-vscode-sidebar border border-vscode-border shadow-2xl rounded-md flex flex-col z-[100] text-vscode-text font-sans selection:bg-vscode-accent/30"
+  if (!mounted) return null;
+
+  const content = (
+    <div
+      ref={menuRef as React.RefObject<HTMLDivElement>}
+      className="fixed bottom-12 left-12 w-[min(300px,calc(100vw-4rem))] md:w-[320px] bg-vscode-sidebar border border-vscode-border shadow-2xl rounded-md flex flex-col z-[200] text-vscode-text font-sans selection:bg-vscode-accent/30"
+      onMouseDown={(e) => e.stopPropagation()}
       onClick={(e) => e.stopPropagation()}
+      role="dialog"
+      aria-label="Settings"
     >
       <div className="px-4 py-2 text-[10px] font-bold tracking-widest text-vscode-text-muted uppercase border-b border-vscode-border/50">
         Settings
@@ -157,4 +171,6 @@ export default function SettingsMenu({ onClose }: SettingsMenuProps) {
       </div>
     </div>
   );
+
+  return createPortal(content, document.body);
 }
